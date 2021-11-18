@@ -1,24 +1,22 @@
-import { Alert, Button, Container, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import useAuth from '../../../hooks/useAuth';
+import { Alert, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import Paper from '@mui/material/Paper';
 
-const MyOrders = () => {
-    const [myOrders, setMyOrders] = useState([]);
-    const { user } = useAuth();
+const ManageAllProducts = () => {
+    const [allOrders, setAllOrders] = useState([]);
     const [operationSuccessful, setOperationSuccessful] = useState(false);
+
     useEffect(() => {
-        const url = `http://localhost:5000/myOrders?email=${user.email}`
+        const url = `http://localhost:5000/products`
         fetch(url)
             .then(res => res.json())
-            .then(data => setMyOrders(data));
+            .then(data => setAllOrders(data));
 
     }, [])
-    const deleteOrder = orderId => {
-        const confirmDelete = window.confirm('Are you sure you want to cancel this order?')
-        const url = `http://localhost:5000/placeOrder/${orderId}`;
+
+    const deleteOrder = productId => {
+        const confirmDelete = window.confirm('Are you sure you want to delete this product?')
+        const url = `http://localhost:5000/products/${productId}`;
         if (confirmDelete) {
             fetch(url, {
                 method: 'DELETE'
@@ -28,17 +26,18 @@ const MyOrders = () => {
                     console.log(data);
                     if (data.deletedCount) {
                         alert('Successfully deleted')
-                        const remaining = myOrders.filter(myOrder => myOrder._id !== orderId);
-                        setMyOrders(remaining);
+                        const remaining = allOrders.filter(myOrder => myOrder._id !== productId);
+                        setAllOrders(remaining);
                         setOperationSuccessful(true);
                         setTimeout(() => setOperationSuccessful(false), 5000)
                     }
                 })
         }
     }
+
     return (
         <div>
-            <h1>Total Orders: {myOrders.length}</h1>
+            <h1>Manage All Products</h1>
             {
                 operationSuccessful &&
                 <Alert severity="success">Operation Successfull</Alert>
@@ -47,14 +46,14 @@ const MyOrders = () => {
                 <Table sx={{ minWidth: 650 }} aria-label="Appointments Table">
                 <TableHead>
                     <TableRow>
-                    <TableCell>Order Id</TableCell>
-                    <TableCell align="right">Time</TableCell>
-                    <TableCell align="right">Order Status</TableCell>
-                            <TableCell align="right">Cancel Order</TableCell>
+                    <TableCell align="left">Product Id</TableCell>
+                    <TableCell align="center">Product Code</TableCell>
+                    <TableCell align="center">Size</TableCell>
+                    <TableCell align="center">Delete Product</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {myOrders.map((row) => (
+                    {allOrders.map((row) => (
                     <TableRow
                         key={row._id}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -62,9 +61,11 @@ const MyOrders = () => {
                         <TableCell component="th" scope="row">
                         {row._id}
                         </TableCell>
-                        <TableCell align="right">{row.time}</TableCell>
-                        <TableCell align="right">{row.orderStatus}</TableCell>
-                        <TableCell align="right"> <Button onClick={() => { deleteOrder(row._id) }} style={{backgroundColor: '#f44336'}} variant="contained">X</Button> </TableCell>
+                        <TableCell component="th" scope="row" align="center">
+                        {row.productCode}
+                        </TableCell>
+                        <TableCell align="center">{row.size}</TableCell>
+                        <TableCell align="center"> <Button onClick={() => { deleteOrder(row._id) }} style={{backgroundColor: '#f44336'}} variant="contained">X</Button> </TableCell>
                     </TableRow>
                     ))}
                 </TableBody>
@@ -74,4 +75,4 @@ const MyOrders = () => {
     );
 };
 
-export default MyOrders;
+export default ManageAllProducts;
