@@ -1,8 +1,13 @@
-import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import React from 'react';
+import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import { useHistory } from 'react-router-dom';
 
 const Product = ({ product }) => {
-    const { productCode, price, img, size, category } = product;
+    const { productCode, price, img, size, category, _id } = product;
+    const history = useHistory();
+    const handleBuyNow = () => {
+        history.push(`/placeOrder/${_id}`)
+    }
     return (
         <Grid item xs={2} sm={4} md={4}>
             <Card sx={{ maxWidth: 345 }}>
@@ -25,7 +30,7 @@ const Product = ({ product }) => {
                     Size: {size}
                     </Typography>
                 </CardContent>
-                <Button style={{marginBottom: 10, color: 'black', backgroundColor: '#ffc400'}} variant="contained">Buy Now</Button>
+                <Button onClick={handleBuyNow} style={{marginBottom: 10, color: 'black', backgroundColor: '#ffc400'}} variant="contained">Buy Now</Button>
             </Card>
         </Grid>
     );

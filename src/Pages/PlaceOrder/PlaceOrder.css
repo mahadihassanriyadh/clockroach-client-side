@@ -1,0 +1,15 @@
+.placeOrder{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.placeOrder form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+}
+.placeOrder form input, .placeOrder form textarea{
+    margin: 10px;
+}
