@@ -84,7 +84,7 @@ const ContactUs = () => {
                             rows={4}
                     />
                     <br />
-                        <Button type="submit" variant="contained" sx={{backgroundColor: '#212121', color: '#ffeb3b'}}>Submit</Button>
+                    <Button type="submit" variant="contained" style={{ backgroundColor: 'black' }}  sx={{ color: '#ffeb3b'}}>Submit</Button>
                     </form>
                 </Box>
         </Container>

@@ -1,10 +1,27 @@
+import { Box, Grid } from '@mui/material';
 import React from 'react';
 
-const Order = () => {
+const Order = ({ order }) => {
+    const { productId, email, time, orderStatus } = order;
+    
     return (
-        <div>
+        <Box>
+            <Grid item xs={8}>
+                 Product Id: {productId}   
+            </Grid>
             
-        </div>
+            <Grid item xs={4}>
+                    
+            </Grid>
+
+            <Grid item xs={4}>
+                    
+            </Grid>
+
+            <Grid item xs={8}>
+                    
+            </Grid>
+        </Box>
     );
 };
 

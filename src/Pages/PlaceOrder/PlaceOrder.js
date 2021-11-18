@@ -13,7 +13,6 @@ const PlaceOrder = () => {
     const { user } = useAuth();
     const [orderSuccess, setOrderSuccess] = useState(false);
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const history = useHistory();
     const [orderItem, setOrderItem] = useState({});
     const url = `http://localhost:5000/products/${productId}`
     useEffect(() => {
@@ -65,7 +64,7 @@ const PlaceOrder = () => {
                     orderSuccess && <Alert sx={{ margin: 3 }} severity="success">Your order has been placed successfully.</Alert>
                 }
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <input className="form-control" {...register("packageid")} placeholder="packageid" required defaultValue={productId} readOnly/>
+                    <input className="form-control" {...register("productId")} placeholder="productId" required defaultValue={productId} readOnly/>
                     <input defaultValue={user.displayName} className="form-control" type="text" {...register("name")} placeholder="Full Name" required />
                     <input defaultValue={user.email} className="form-control" type="email" {...register("email")} placeholder="Email" required />
                     {errors.email && <span className="error">This field is required</span>}

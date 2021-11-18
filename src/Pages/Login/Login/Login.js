@@ -77,7 +77,7 @@ const Login = () => {
                                         onBlur={handleOnBlur}
                                     />
 
-                                    <Button type="submit" sx={{ width: "75%", m: 1, backgroundColor: '#212121', color: '#ffeb3b'}} variant="contained">Login</Button>
+                            <Button type="submit" style={{ backgroundColor: 'black' }} sx={{ width: "75%", m: 1, color: '#ffeb3b'}} variant="contained">Login</Button>
                                     <NavLink style={{textDecoration: "none"}} to="/register">
                                         <Button style={{color: 'black'}} variant="text">New User? Please Register</Button>
                                     </NavLink>
