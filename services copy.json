@@ -1,0 +1,20 @@
+[
+    {
+      "name": "Emily Chan",
+      "star": 4.3,
+      "review": "Loved their products Quality!",
+      "img": "https://i.ibb.co/4Mb0jbR/reviewer1.png"
+    },
+    {
+      "name": "Victoria Alan",
+      "star": 4.5,
+      "review": "No one can beat their customer service.",
+      "img": "https://i.ibb.co/wQc04pZ/reviewer2.png"
+    },
+    {
+      "name": "Dr. Russ Sen",
+      "star": 5,
+      "review": "I will definately buy more from here",
+      "img": "https://i.ibb.co/rpmRdxp/reviewer3.png"
+    }
+  ]

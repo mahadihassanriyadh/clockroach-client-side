@@ -41,8 +41,9 @@ const PlaceOrder = () => {
         } 
     };
     return (
+        <>
+        <Header></Header>
         <Container>
-            <Header></Header>
             <Grid className="mt-3" container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={12} md={6}>
                     <img style={{width: "75%"}} src={orderItem.img} alt="" />
@@ -74,7 +75,8 @@ const PlaceOrder = () => {
                     <input className="btn btn-dark" type="submit" />
                 </form>
             </div>
-        </Container>
+        </Container>    
+        </>
     );
 };
 
