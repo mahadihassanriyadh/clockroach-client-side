@@ -7,7 +7,7 @@ const ManageAllProducts = () => {
     const [operationSuccessful, setOperationSuccessful] = useState(false);
 
     useEffect(() => {
-        const url = `http://localhost:5000/products`
+        const url = `https://rocky-reef-73687.herokuapp.com/products`
         fetch(url)
             .then(res => res.json())
             .then(data => setAllOrders(data));
@@ -16,7 +16,7 @@ const ManageAllProducts = () => {
 
     const deleteOrder = productId => {
         const confirmDelete = window.confirm('Are you sure you want to delete this product?')
-        const url = `http://localhost:5000/products/${productId}`;
+        const url = `https://rocky-reef-73687.herokuapp.com/products/${productId}`;
         if (confirmDelete) {
             fetch(url, {
                 method: 'DELETE'

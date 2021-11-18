@@ -14,7 +14,7 @@ const AddAdmin = () => {
     const handleAdminSubmit = e => {
         e.preventDefault();
         const toBeAdmin = { email };
-        fetch(`http://localhost:5000/users/admin?email=${user.email}`, {
+        fetch(`https://rocky-reef-73687.herokuapp.com/users/admin?email=${user.email}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

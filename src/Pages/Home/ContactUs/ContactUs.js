@@ -16,7 +16,7 @@ const ContactUs = () => {
 
     const handleBookingSubmit = e => {
         // send to the server
-        fetch('http://localhost:5000/contactUs', {
+        fetch('https://rocky-reef-73687.herokuapp.com/contactUs', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

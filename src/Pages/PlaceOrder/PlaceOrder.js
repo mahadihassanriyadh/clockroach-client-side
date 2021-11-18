@@ -14,7 +14,7 @@ const PlaceOrder = () => {
     const [orderSuccess, setOrderSuccess] = useState(false);
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [orderItem, setOrderItem] = useState({});
-    const url = `http://localhost:5000/products/${productId}`
+    const url = `https://rocky-reef-73687.herokuapp.com/products/${productId}`
     useEffect(() => {
         fetch(url)
             .then(res => res.json())
@@ -27,7 +27,7 @@ const PlaceOrder = () => {
     const onSubmit = (data) => {
         console.log(data);
         if ((data.name !== "") && (data.email !== "")){
-            axios.post('http://localhost:5000/placeOrder', data)
+            axios.post('https://rocky-reef-73687.herokuapp.com/placeOrder', data)
                 .then(res => {
                     // console.log(res);
                     if (res.data.insertedId) {

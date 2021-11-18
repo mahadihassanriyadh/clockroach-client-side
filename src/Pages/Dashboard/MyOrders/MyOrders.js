@@ -10,7 +10,7 @@ const MyOrders = () => {
     const { user } = useAuth();
     const [operationSuccessful, setOperationSuccessful] = useState(false);
     useEffect(() => {
-        const url = `http://localhost:5000/myOrders?email=${user.email}`
+        const url = `https://rocky-reef-73687.herokuapp.com/myOrders?email=${user.email}`
         fetch(url)
             .then(res => res.json())
             .then(data => setMyOrders(data));
@@ -18,7 +18,7 @@ const MyOrders = () => {
     }, [])
     const deleteOrder = orderId => {
         const confirmDelete = window.confirm('Are you sure you want to cancel this order?')
-        const url = `http://localhost:5000/placeOrder/${orderId}`;
+        const url = `https://rocky-reef-73687.herokuapp.com/placeOrder/${orderId}`;
         if (confirmDelete) {
             fetch(url, {
                 method: 'DELETE'

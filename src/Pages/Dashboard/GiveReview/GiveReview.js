@@ -8,7 +8,7 @@ const GiveReview = () => {
     const [success, setSuccess] = useState(false);
     const onSubmit = data => {
         console.log(data);
-        axios.post('http://localhost:5000/giveReview', data)
+        axios.post('https://rocky-reef-73687.herokuapp.com/giveReview', data)
         .then(res => {
             // console.log(res);
             if (res.data.insertedId) {

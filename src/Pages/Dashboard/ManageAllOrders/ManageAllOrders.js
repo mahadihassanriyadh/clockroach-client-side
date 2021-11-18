@@ -8,7 +8,7 @@ const ManageAllOrders = () => {
     const [operationSuccessful, setOperationSuccessful] = useState(false);
 
     useEffect(() => {
-        const url = `http://localhost:5000/allOrders`
+        const url = `https://rocky-reef-73687.herokuapp.com/allOrders`
         fetch(url)
             .then(res => res.json())
             .then(data => setAllOrders(data));
@@ -17,7 +17,7 @@ const ManageAllOrders = () => {
 
     const deleteOrder = orderId => {
         const confirmDelete = window.confirm('Are you sure you want to cancel this order?')
-        const url = `http://localhost:5000/placeOrder/${orderId}`;
+        const url = `https://rocky-reef-73687.herokuapp.com/placeOrder/${orderId}`;
         if (confirmDelete) {
             fetch(url, {
                 method: 'DELETE'
@@ -38,7 +38,7 @@ const ManageAllOrders = () => {
 
     const updateOrder = orderId => {
         const confirmUpdate = window.confirm('Are you sure you want to approve this order?')
-        const url = `http://localhost:5000/updateStatus/${orderId}`
+        const url = `https://rocky-reef-73687.herokuapp.com/updateStatus/${orderId}`
         if (confirmUpdate) {
             axios.put(url, {
                 status: "shipped"
