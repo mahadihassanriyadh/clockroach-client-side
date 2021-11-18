@@ -7,10 +7,10 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link, NavLink } from 'react-router-dom';
-// import useAuth from '../../../hooks/useAuth';
+import useAuth from '../../../hooks/useAuth';
 
 const Header = () => {
-    // const { user, logout } = useAuth();
+    const { user, logout } = useAuth();
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" style={{backgroundColor: "#212121"}}>
@@ -30,28 +30,28 @@ const Header = () => {
                     <Link style={{ textDecoration: 'none', color: 'white' }} to="/products"><Button color="inherit">Explore</Button></Link>
 
                     {
-                        // user?.email ?
-                        //     <Box>
-                        //         <NavLink style={{textDecoration: 'none', color: 'white'}} to="/dashboard">
-                        //             <Button color="inherit">Dashboard</Button>
-                        //         </NavLink>  
-                        //         <Button style={{textDecoration: 'none', color: 'white'}} onClick={logout} color="inherit">Logout</Button>
-                        //     </Box>
-                        //     :
+                        user?.email ?
+                            <Box>
+                                <NavLink style={{textDecoration: 'none', color: 'white'}} to="/dashboard">
+                                    <Button color="inherit">Dashboard</Button>
+                                </NavLink>  
+                                <Button style={{textDecoration: 'none', color: 'white', backgroundColor: '#ffeb3b', color: 'black', marginRight: 5}} onClick={logout} color="inherit">Logout</Button>
+                            </Box>
+                            :
                         <NavLink style={{textDecoration: 'none', color: 'white'}} to="/login">
-                            <Button color="inherit">Login</Button>
+                            <Button style={{backgroundColor: '#ffeb3b', color: 'black'}}>Login</Button>
                         </NavLink>                            
 
                     }
 
-                    {/* {
+                    {
                         user?.email &&
                         <small>
                             <NavLink style={{ textDecoration: 'none', color: 'white'}} to="/">
-                        Logged in as { user?.displayName }
+                        User: { user?.displayName }
                             </NavLink>
                         </small>
-                    } */}
+                    }
                 </Toolbar>
             </AppBar>
         </Box>
