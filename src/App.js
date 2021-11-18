@@ -41,7 +41,7 @@ function App() {
                 <Dashboard></Dashboard>
             </PrivateRoute>
             </Switch>
-          </Router>
+        </Router>
       </AuthProvider>
     </div>
   );

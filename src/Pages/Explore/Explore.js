@@ -1,5 +1,6 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import Footer from '../Shared/Footer/Footer';
 import Header from '../Shared/Header/Header';
 import Product from '../Shared/Product/Product';
 
@@ -27,7 +28,8 @@ const Explore = () => {
                     </Grid>
                 </Box>
             </Typography>
-        </Container>
+            </Container>
+            <Footer></Footer>
     </>
     );
 };
