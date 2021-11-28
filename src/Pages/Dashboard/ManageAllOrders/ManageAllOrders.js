@@ -2,6 +2,9 @@ import { Alert, Button, Table, TableBody, TableCell, TableContainer, TableHead, 
 import React, { useEffect, useState } from 'react';
 import Paper from '@mui/material/Paper';
 import axios from 'axios';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import WarningIcon from '@mui/icons-material/Warning';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const ManageAllOrders = () => {
     const [allOrders, setAllOrders] = useState([]);
@@ -15,28 +18,28 @@ const ManageAllOrders = () => {
 
     }, [])
 
-    const deleteOrder = orderId => {
-        const confirmDelete = window.confirm('Are you sure you want to cancel this order?')
-        const url = `https://rocky-reef-73687.herokuapp.com/placeOrder/${orderId}`;
-        if (confirmDelete) {
-            fetch(url, {
-                method: 'DELETE'
-            })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                    if (data.deletedCount) {
-                        alert('Successfully deleted')
-                        const remaining = allOrders.filter(myOrder => myOrder._id !== orderId);
-                        setAllOrders(remaining);
-                        setOperationSuccessful(true);
-                        setTimeout(() => setOperationSuccessful(false), 5000)
-                    }
-                })
-        }
-    }
+    // const deleteOrder = orderId => {
+    //     const confirmDelete = window.confirm('Are you sure you want to cancel this order?')
+    //     const url = `https://rocky-reef-73687.herokuapp.com/placeOrder/${orderId}`;
+    //     if (confirmDelete) {
+    //         fetch(url, {
+    //             method: 'DELETE'
+    //         })
+    //             .then(res => res.json())
+    //             .then(data => {
+    //                 console.log(data);
+    //                 if (data.deletedCount) {
+    //                     alert('Successfully deleted')
+    //                     const remaining = allOrders.filter(myOrder => myOrder._id !== orderId);
+    //                     setAllOrders(remaining);
+    //                     setOperationSuccessful(true);
+    //                     setTimeout(() => setOperationSuccessful(false), 5000)
+    //                 }
+    //             })
+    //     }
+    // }
 
-    const updateOrder = orderId => {
+    const approveOrder = orderId => {
         const confirmUpdate = window.confirm('Are you sure you want to approve this order?')
         const url = `https://rocky-reef-73687.herokuapp.com/updateStatus/${orderId}`
         if (confirmUpdate) {
@@ -47,6 +50,29 @@ const ManageAllOrders = () => {
                     console.log(res);
                     const findPackage = allOrders.find(order => orderId === order._id)
                     findPackage.orderStatus = "shipped";
+
+                    const remaining = allOrders.filter(order => order._id !== orderId);
+                    
+                    remaining.push(findPackage)
+                    setAllOrders(remaining);
+                    setOperationSuccessful(true);
+                    setTimeout(() => setOperationSuccessful(false), 5000)
+                    // window.location.reload();
+                })
+        }
+    }
+
+    const cancelOrder = orderId => {
+        const confirmUpdate = window.confirm('Are you sure you want to cancel this order?')
+        const url = `https://rocky-reef-73687.herokuapp.com/updateStatus/${orderId}`
+        if (confirmUpdate) {
+            axios.put(url, {
+                status: "cancelled"
+            })
+                .then(res => {
+                    console.log(res);
+                    const findPackage = allOrders.find(order => orderId === order._id)
+                    findPackage.orderStatus = "cancelled";
 
                     const remaining = allOrders.filter(order => order._id !== orderId);
                     
@@ -91,9 +117,28 @@ const ManageAllOrders = () => {
                         {row._id}
                         </TableCell>
                         <TableCell align="center">{row.time}</TableCell>
-                        <TableCell align="center">{row.orderStatus}</TableCell>
-                        <TableCell align="center"> <Button onClick={() => { deleteOrder(row._id) }} style={{backgroundColor: '#f44336'}} variant="contained">X</Button> </TableCell>
-                        <TableCell align="center"> <Button onClick={() => { updateOrder(row._id) }} style={{backgroundColor: '#64dd17'}} variant="contained">✔</Button> </TableCell>
+                        <TableCell align="center">
+                            {   row.orderStatus === 'shipped' &&
+                                <p style={{backgroundColor: '#edf7ed', padding: '5px', borderRadius: '8px', width: '100%'}}>
+                                    <CheckCircleIcon style={{color: '#65ba68', marginRight: '5px'}}></CheckCircleIcon>  
+                                    {row.orderStatus}
+                                </p>  
+                            }
+                            {   row.orderStatus === 'pending' &&
+                                <p style={{backgroundColor: '#fff4e5', padding: '5px', borderRadius: '8px', width: '100%'}}>
+                                    <WarningIcon style={{color: '#ffa117', marginRight: '5px'}}></WarningIcon>   
+                                    {row.orderStatus}
+                                </p>  
+                            }
+                            {   row.orderStatus === 'cancelled' &&
+                                <p style={{backgroundColor: '#fdeded', padding: '5px', borderRadius: '8px', width: '100%'}}>
+                                    <CancelIcon style={{color: '#f06360', marginRight: '5px'}}></CancelIcon>  
+                                    {row.orderStatus}
+                                </p>  
+                            }
+                        </TableCell>
+                        <TableCell align="center"> <Button disabled={row.orderStatus === 'cancelled'} onClick={() => { cancelOrder(row._id) }} style={{backgroundColor: '#f44336'}} variant="contained">X</Button> </TableCell>
+                        <TableCell align="center"> <Button disabled={row.orderStatus === 'cancelled' || row.orderStatus === 'shipped'} onClick={() => { approveOrder(row._id) }} style={{backgroundColor: '#64dd17'}} variant="contained">✔</Button> </TableCell>
                     </TableRow>
                     ))}
                 </TableBody>
